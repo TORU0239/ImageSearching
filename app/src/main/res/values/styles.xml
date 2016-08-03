@@ -1,0 +1,35 @@
+<resources>
+
+    <!-- Base application theme. -->
+
+    <style name="AppTheme" parent="Base.Theme.SupportDesign"/>
+
+    <style name="Base.Theme.SupportDesign" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!--   your app branding color for the app bar -->
+        <item name="colorPrimary">@color/kakaoPrimary</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="colorPrimaryDark">@color/kakaoPrimaryDark</item>
+        <!--   theme UI controls like checkboxes and text fields -->
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- tab style -->
+    <style name="TabTextAppearance" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textColor">@color/kakaoMainDark</item>
+    </style>
+
+    <style name="ImageSearchTabAppearance" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/kakaoPrimaryDark</item>
+        <item name="tabIndicatorColor">@color/kakaoPrimaryDark</item>
+    </style>
+
+    <!-- text input appearance-->
+    <style name="MyTextInputLayoutTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColorHint">#0097A7</item>
+        <item name="colorControlNormal">#0097A7</item>
+        <item name="colorControlActivated">#0097A7</item>
+    </style>
+
+</resources>
