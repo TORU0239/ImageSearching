@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
-    android:label="searchLabel"
-    android:hint="searchHint">
+    android:searchMode="queryRewriteFromText"
+    android:inputType="text"
+    android:hint="@string/search">
 </searchable>
