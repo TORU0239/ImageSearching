@@ -1,5 +1,10 @@
 package io.toru.imagesearching;
 
+import android.annotation.TargetApi;
+import android.app.ActivityManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,12 +14,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,17 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tab = (TabLayout) findViewById(R.id.main_tab_layout);
         tab.setupWithViewPager(vpPager);
+
+        setTaskDescription();
+    }
+
+    @TargetApi(21)
+    private void setTaskDescription() {
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+            ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name).toString(), bm, getResources().getColor(R.color.kakaoMain, null));
+            setTaskDescription(taskDescription);
+        }
     }
 
     @Override

@@ -16,12 +16,12 @@
 
     <!-- tab style -->
     <style name="TabTextAppearance" parent="TextAppearance.AppCompat.Button">
-        <item name="android:textColor">@color/kakaoMainDark</item>
+        <item name="android:textColor">@color/kakao_tab_unselected_text_color</item>
     </style>
 
     <style name="ImageSearchTabAppearance" parent="Widget.Design.TabLayout">
         <item name="tabTextAppearance">@style/TabTextAppearance</item>
-        <item name="tabSelectedTextColor">@color/kakaoPrimaryDark</item>
+        <item name="tabSelectedTextColor">@color/kakao_tab_selected_text_color</item>
         <item name="tabIndicatorColor">@color/kakaoPrimaryDark</item>
     </style>
 

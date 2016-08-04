@@ -9,6 +9,9 @@
     <color name="kakaoMain">#fae102</color>
     <color name="kakaoMainDark">#e2cc00</color>
 
+    <color name="kakao_tab_unselected_text_color">#bfb8bb</color>
+    <color name="kakao_tab_selected_text_color">@color/kakaoPrimaryDark</color>
+
     <color name="kakao_tab_color">#f2f2f2</color>
     <color name="kakao_recycler_bg">#f2f2f5</color>
 
