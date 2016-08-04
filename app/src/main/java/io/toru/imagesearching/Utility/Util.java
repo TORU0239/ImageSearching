@@ -9,6 +9,8 @@ import android.widget.EditText;
  */
 public class Util {
 
+    private static final String API_KEY = "b3b23c05a30783b9751b1b322d898718";
+
     public static void hideKeyboard(Context ctx, EditText editText) {
         InputMethodManager imm = (InputMethodManager)ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromInputMethod(editText.getWindowToken(), 0);
