@@ -1,4 +1,4 @@
-package io.toru.imagesearching;
+package io.toru.imagesearching.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +7,8 @@ import android.support.v7.widget.AppCompatEditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import io.toru.imagesearching.R;
 
 public class WidgetFragment extends Fragment {
 

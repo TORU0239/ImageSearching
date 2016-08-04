@@ -1,4 +1,4 @@
-package io.toru.imagesearching;
+package io.toru.imagesearching.activity;
 
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
@@ -17,9 +17,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import io.toru.imagesearching.fragment.ListFragment;
+import io.toru.imagesearching.R;
+import io.toru.imagesearching.fragment.WidgetFragment;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
