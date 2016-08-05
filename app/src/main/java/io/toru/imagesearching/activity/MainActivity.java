@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import io.toru.imagesearching.Utility.Util;
 import io.toru.imagesearching.fragment.ListFragment;
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.fragment.WidgetFragment;
@@ -79,17 +80,32 @@ public class MainActivity extends AppCompatActivity {
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 //        searchView.setIconifiedByDefault(true);
 
-        final EditText searchEdit = (EditText)searchView.findViewById(R.id.search_src_text);
-        searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH){
-                    String search = searchEdit.getEditableText().toString();
-                    performQuery(search);
-                }
+            public boolean onQueryTextSubmit(String query) {
+                Log.w(TAG, "onQueryTextSubmit: query :" + query);
+                searchView.clearFocus();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.w(TAG, "onQueryTextSubmit: newText :" + newText);
                 return true;
             }
         });
+
+//        final EditText searchEdit = (EditText)searchView.findViewById(R.id.search_src_text);
+//        searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                if(actionId == EditorInfo.IME_ACTION_SEARCH){
+//                    String search = searchEdit.getEditableText().toString();
+//                    performQuery(search);
+//                }
+//                return true;
+//            }
+//        });
 
         return true;
     }
