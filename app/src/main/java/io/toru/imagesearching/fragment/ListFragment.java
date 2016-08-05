@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -28,6 +29,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.toru.imagesearching.ImageSearchApplication;
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.model.SearchResultModel;
 
@@ -55,7 +57,7 @@ public class ListFragment extends Fragment {
         Log.w(TAG, "onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_tab_1, container, false);
-        searchResultRecyclerView = (RecyclerView) rootView.findViewById(R.id.searching_recyclerview);
+        searchResultRecyclerView = (RecyclerView) rootView.findViewById(R.id.searching_recycleview);
         searchResultRecyclerView.setHasFixedSize(true);
         searchResultRecyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), SPAN_COUNT));
 
@@ -77,7 +79,6 @@ public class ListFragment extends Fragment {
 
         SearchResultModel model4=  new SearchResultModel();
         model4.setImage("http://cfile22.uf.tistory.com/image/251DDC39548EE62B303156");
-
 
         searchedModelList.add(model1);
         searchedModelList.add(model2);
@@ -130,8 +131,18 @@ public class ListFragment extends Fragment {
 
         // viewholder 를 이용해서 item 을 replacing.
         @Override
-        public void onBindViewHolder(SearchResultViewHolder holder, int position) {
-            SearchResultModel model = modelList.get(position);
+        public void onBindViewHolder(SearchResultViewHolder holder, final int position) {
+            final SearchResultModel model = modelList.get(position);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(), "position :: " + position, Toast.LENGTH_SHORT).show();
+                    ImageSearchApplication.getApplication().getModelList().add(model);
+
+                    // TODO : 추가될 때매다 뷰에 알려 주는 부분을 추가해야 함
+                    // TODO : 아니면 탭이 바뀔 때, 내 보관함에서 보관함을 갱신해 주어야 함
+                }
+            });
             Glide.with(ListFragment.this).load(model.getImage()).into(holder.searchedImageView);
         }
 

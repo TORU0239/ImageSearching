@@ -75,15 +75,14 @@ public class MainActivity extends AppCompatActivity {
         MenuItem searchMenuItem = menu.findItem(R.id.action_search);
 
         SearchManager searchManager = (SearchManager)getSystemService(Context.SEARCH_SERVICE);
+
         final SearchView searchView = (SearchView)searchMenuItem.getActionView();
         searchView.setQueryHint(getString(R.string.search));
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-//        searchView.setIconifiedByDefault(true);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.w(TAG, "onQueryTextSubmit: query :" + query);
+                performQuery(query);
                 searchView.clearFocus();
                 return false;
             }
@@ -91,22 +90,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 Log.w(TAG, "onQueryTextSubmit: newText :" + newText);
-                return true;
+                return false;
             }
         });
-
-//        final EditText searchEdit = (EditText)searchView.findViewById(R.id.search_src_text);
-//        searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                if(actionId == EditorInfo.IME_ACTION_SEARCH){
-//                    String search = searchEdit.getEditableText().toString();
-//                    performQuery(search);
-//                }
-//                return true;
-//            }
-//        });
-
         return true;
     }
 
