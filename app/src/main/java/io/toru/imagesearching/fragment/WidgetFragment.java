@@ -3,7 +3,7 @@ package io.toru.imagesearching.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatEditText;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +11,35 @@ import android.view.ViewGroup;
 import io.toru.imagesearching.R;
 
 public class WidgetFragment extends Fragment {
+    private static final String TAG = WidgetFragment.class.getSimpleName();
+
 
     public WidgetFragment() {
         super();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_widget, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.w(TAG, "onCreate:");
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.w(TAG, "onCreateView:");
+        return inflater.inflate(R.layout.fragment_tab_2, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        Log.w(TAG, "onViewCreated:");
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.w(TAG, "onResume");
+    }
 }
