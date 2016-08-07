@@ -20,16 +20,25 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import io.toru.imagesearching.fragment.ListFragment;
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.fragment.WidgetFragment;
+import io.toru.imagesearching.model.OriginalSearchingResultModel;
+import io.toru.imagesearching.model.SearchResultModel;
+import io.toru.imagesearching.network.ISearchingApi;
+import io.toru.imagesearching.network.NetworkRestClient;
+import io.toru.imagesearching.utility.Util;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-
     private ViewPager viewPager;
 
     @Override
@@ -38,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.main_toolbar);
-        toolbar.setTitle("KakaoTalk");
+        toolbar.setTitle(R.string.kakao_name);
         setSupportActionBar(toolbar);
 
         final ArrayList<Fragment> fragmentList = new ArrayList<>();
@@ -47,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.main_viewpager);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragmentList));
-
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
@@ -71,8 +79,24 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tab = (TabLayout) findViewById(R.id.main_tab_layout);
         tab.setupWithViewPager(viewPager);
+//        setTaskDescription();
 
-        setTaskDescription();
+        ISearchingApi service = NetworkRestClient.getSearchingApi();
+        Call<OriginalSearchingResultModel> call = service.getQueriedImageList("test");
+        call.enqueue(new Callback<OriginalSearchingResultModel>() {
+            @Override
+            public void onResponse(Call<OriginalSearchingResultModel> call, Response<OriginalSearchingResultModel> response) {
+                OriginalSearchingResultModel result = response.body();
+                Log.w(TAG, "onResponse: message::" + response.code());
+                Log.w(TAG, "onResponse: message::" + response.message());
+                Log.d("MainActivity", "response = " + new Gson().toJson(result));
+            }
+
+            @Override
+            public void onFailure(Call<OriginalSearchingResultModel> call, Throwable t) {
+
+            }
+        });
     }
 
     @TargetApi(23)
