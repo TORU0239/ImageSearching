@@ -32,6 +32,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.toru.imagesearching.Utility.Util;
 import io.toru.imagesearching.fragment.ListFragment;
 import io.toru.imagesearching.R;
@@ -51,8 +54,33 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("KakaoTalk");
         setSupportActionBar(toolbar);
 
+        final ArrayList<Fragment> fragmentList = new ArrayList<>();
+        fragmentList.add(new ListFragment());
+        fragmentList.add(new WidgetFragment());
+
         viewPager = (ViewPager) findViewById(R.id.main_viewpager);
-        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragmentList));
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            @Override
+            public void onPageSelected(int position) {
+                Fragment fragment = fragmentList.get(position);
+
+                if(fragment instanceof ListFragment){
+                    ((ListFragment) fragment).test();
+                }
+                else if(fragment instanceof WidgetFragment){
+                    ((WidgetFragment) fragment).test();
+                }
+                else{}
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
 
         TabLayout tab = (TabLayout) findViewById(R.id.main_tab_layout);
         tab.setupWithViewPager(viewPager);
@@ -107,8 +135,15 @@ public class MainActivity extends AppCompatActivity {
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
+        private List<Fragment> fragmentList;
+
         public ViewPagerAdapter(FragmentManager fm) {
             super(fm);
+        }
+
+        public ViewPagerAdapter(FragmentManager fm, List<Fragment> fragmentList) {
+            super(fm);
+            this.fragmentList = fragmentList;
         }
 
         @Override
@@ -124,18 +159,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return fragmentList.size();
         }
 
         @Override
         public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return new ListFragment();
-                case 1:
-                    return new WidgetFragment();
-            }
-            throw new IndexOutOfBoundsException();
+            Log.w(TAG, "getItem: position :: " + position);
+            return fragmentList.get(position);
         }
     }
 }

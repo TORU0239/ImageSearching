@@ -44,6 +44,11 @@ public class ListFragment extends Fragment {
         super();
     }
 
+    // test code
+    public void test() {
+        Log.w(TAG, "test: test, ListFragment");
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Log.w(TAG, "onCreate");

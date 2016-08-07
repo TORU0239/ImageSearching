@@ -43,4 +43,9 @@ public class WidgetFragment extends Fragment {
         super.onResume();
         Log.w(TAG, "onResume");
     }
+
+    // test code
+    public void test() {
+        Log.w(TAG, "test: test, WidgetFragment");
+    }
 }
