@@ -1,39 +1,27 @@
 package io.toru.imagesearching.fragment;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import org.xml.sax.SAXNotRecognizedException;
-
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.toru.imagesearching.ImageSearchApplication;
 import io.toru.imagesearching.R;
+import io.toru.imagesearching.framework.fragment.BaseFragment;
 import io.toru.imagesearching.model.SearchResultModel;
 
-public class ListFragment extends Fragment {
+public class ListFragment extends BaseFragment {
 
     private static final String TAG = ListFragment.class.getSimpleName();
     private static final int SPAN_COUNT = 2;
@@ -44,8 +32,21 @@ public class ListFragment extends Fragment {
         super();
     }
 
-    // test code
-    public void test() {
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_tab_1;
+    }
+
+    @Override
+    public void initView(View rootView) {
+        searchResultRecyclerView = (RecyclerView) rootView.findViewById(R.id.searching_recycleview);
+        searchResultRecyclerView.setHasFixedSize(true);
+        searchResultRecyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), SPAN_COUNT));
+    }
+
+    @Override
+    public void doSelectedAction() {
+        super.doSelectedAction();
         Log.w(TAG, "test: test, ListFragment");
     }
 
@@ -58,15 +59,7 @@ public class ListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        Log.w(TAG, "onCreateView");
-
-        View rootView = inflater.inflate(R.layout.fragment_tab_1, container, false);
-        searchResultRecyclerView = (RecyclerView) rootView.findViewById(R.id.searching_recycleview);
-        searchResultRecyclerView.setHasFixedSize(true);
-        searchResultRecyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), SPAN_COUNT));
-
-        return rootView;
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     private ArrayList<SearchResultModel> testImage() {

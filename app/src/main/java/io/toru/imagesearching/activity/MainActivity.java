@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = fragmentList.get(position);
 
                 if(fragment instanceof ListFragment){
-                    ((ListFragment) fragment).test();
+                    ((ListFragment) fragment).doSelectedAction();
                 }
                 else if(fragment instanceof WidgetFragment){
                     ((WidgetFragment) fragment).test();
