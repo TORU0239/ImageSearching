@@ -45,8 +45,7 @@ public class ListFragment extends BaseFragment {
     }
 
     @Override
-    public void doSelectedAction() {
-        super.doSelectedAction();
+    public void selectedAction() {
         Log.w(TAG, "test: test, ListFragment");
     }
 

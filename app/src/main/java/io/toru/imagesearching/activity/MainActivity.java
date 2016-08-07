@@ -4,38 +4,25 @@ import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.ActionMenuItemView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.toru.imagesearching.Utility.Util;
 import io.toru.imagesearching.fragment.ListFragment;
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.fragment.WidgetFragment;
@@ -70,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = fragmentList.get(position);
 
                 if(fragment instanceof ListFragment){
-                    ((ListFragment) fragment).doSelectedAction();
+                    ((ListFragment) fragment).selectedAction();
                 }
                 else if(fragment instanceof WidgetFragment){
                     ((WidgetFragment) fragment).test();
@@ -134,12 +121,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
-
         private List<Fragment> fragmentList;
-
-        public ViewPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
 
         public ViewPagerAdapter(FragmentManager fm, List<Fragment> fragmentList) {
             super(fm);

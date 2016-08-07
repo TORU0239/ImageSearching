@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import io.toru.imagesearching.R;
 
-public abstract class BaseFragment extends Fragment implements IFragmentCallback{
+public abstract class BaseFragment extends Fragment{
 
     public BaseFragment() {
         // Required empty public constructor
@@ -18,7 +18,7 @@ public abstract class BaseFragment extends Fragment implements IFragmentCallback
 
     public abstract int getLayoutId();
     public abstract void initView(View rootView);
-
+    public abstract void selectedAction();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,5 @@ public abstract class BaseFragment extends Fragment implements IFragmentCallback
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-    }
-
-    @Override
-    public void doSelectedAction() {
     }
 }
