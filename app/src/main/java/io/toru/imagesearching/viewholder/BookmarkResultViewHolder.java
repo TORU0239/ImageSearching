@@ -5,18 +5,18 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import io.toru.imagesearching.app.ImageSearchApplication;
 import io.toru.imagesearching.R;
+import io.toru.imagesearching.app.ImageSearchApplication;
 import io.toru.imagesearching.framework.viewholder.BaseResultViewHolder;
 import io.toru.imagesearching.model.SearchResultModel;
 
 /**
  * Created by toru on 2016. 8. 8..
  */
-public class SearchResultViewHolder extends BaseResultViewHolder {
+public class BookmarkResultViewHolder extends BaseResultViewHolder {
     private ImageView searchedImageView;
 
-    public SearchResultViewHolder(View itemView) {
+    public BookmarkResultViewHolder(View itemView) {
         super(itemView);
     }
 

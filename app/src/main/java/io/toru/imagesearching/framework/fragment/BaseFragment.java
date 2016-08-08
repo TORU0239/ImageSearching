@@ -12,6 +12,8 @@ import io.toru.imagesearching.R;
 
 public abstract class BaseFragment extends Fragment{
 
+    public static final int SPAN_COUNT = 2;
+
     public BaseFragment() {
         // Required empty public constructor
     }

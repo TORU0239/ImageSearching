@@ -18,10 +18,7 @@ import io.toru.imagesearching.framework.fragment.BaseFragment;
 import io.toru.imagesearching.model.SearchResultModel;
 
 public class SearchedListFragment extends BaseFragment {
-
     private static final String TAG = SearchedListFragment.class.getSimpleName();
-    private static final int SPAN_COUNT = 2;
-
     private RecyclerView searchResultRecyclerView;
     private SearchResultAdapter resultAdapter;
 
@@ -73,48 +70,5 @@ public class SearchedListFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         Log.w(TAG, "onViewCreated");
         searchResultRecyclerView.setAdapter(resultAdapter);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    private ArrayList<SearchResultModel> testImage() {
-        // test code before a
-        ArrayList<SearchResultModel> searchedModelList = new ArrayList<>();
-
-        SearchResultModel model1=  new SearchResultModel();
-        model1.setImage("http://dthumb.phinf.naver.net/?src=%22http%3A%2F%2Fimage.fnnews.com%2Fresource%2Fmedia%2Fimage%2F2016%2F04%2F07%2F201604071700205185_m.png%22&type=f220");
-
-        SearchResultModel model2=  new SearchResultModel();
-        model2.setImage("http://cfile234.uf.daum.net/image/27033A3E57848C241F42B6");
-
-        SearchResultModel model3=  new SearchResultModel();
-        model3.setImage("http://cfile8.uf.tistory.com/image/1524CF3F50C857B002EF74");
-
-        SearchResultModel model4=  new SearchResultModel();
-        model4.setImage("http://cfile22.uf.tistory.com/image/251DDC39548EE62B303156");
-
-        searchedModelList.add(model1);
-        searchedModelList.add(model2);
-        searchedModelList.add(model3);
-        searchedModelList.add(model4);
-        searchedModelList.add(model2);
-        searchedModelList.add(model3);
-        searchedModelList.add(model1);
-        searchedModelList.add(model4);
-        searchedModelList.add(model3);
-        searchedModelList.add(model1);
-        searchedModelList.add(model4);
-        searchedModelList.add(model3);
-        searchedModelList.add(model2);
-        searchedModelList.add(model1);
-        searchedModelList.add(model3);
-        searchedModelList.add(model4);
-        searchedModelList.add(model2);
-        searchedModelList.add(model3);
-
-        return searchedModelList;
     }
 }

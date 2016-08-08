@@ -11,35 +11,33 @@ import java.util.List;
 import io.toru.imagesearching.app.ImageSearchApplication;
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.model.SearchResultModel;
+import io.toru.imagesearching.viewholder.BookmarkResultViewHolder;
 import io.toru.imagesearching.viewholder.SearchResultViewHolder;
 
 /**
  * Created by toru on 2016. 8. 8..
  */
-public class BookmarkResultAdapter extends RecyclerView.Adapter<SearchResultViewHolder>{
+public class BookmarkResultAdapter extends RecyclerView.Adapter<BookmarkResultViewHolder>{
     private static final String TAG = BookmarkResultAdapter.class.getSimpleName();
-
     private List<SearchResultModel> modelList;
 
     public BookmarkResultAdapter(List<SearchResultModel> list) {
         modelList = list;
     }
 
-    public BookmarkResultAdapter() {
-    }
+    public BookmarkResultAdapter() {}
 
     // 새로운 뷰를 만들어 준다
     @Override
-    public SearchResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BookmarkResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder, parent, false);
-        SearchResultViewHolder viewholder = new SearchResultViewHolder(rootView);
+        BookmarkResultViewHolder viewholder = new BookmarkResultViewHolder(rootView);
         return viewholder;
     }
 
     // viewholder 를 이용해서 item 을 replacing.
     @Override
-    public void onBindViewHolder(SearchResultViewHolder holder, final int position) {
-        Log.w(TAG, "onBindViewHolder, position :: " + position);
+    public void onBindViewHolder(BookmarkResultViewHolder holder, final int position) {
         final SearchResultModel model = ImageSearchApplication.getApplication().getModelList().get(position);
         holder.updateView(model);
     }

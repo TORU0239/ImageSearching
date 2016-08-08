@@ -1,4 +1,4 @@
-package io.toru.imagesearching.framework;
+package io.toru.imagesearching.utility;
 
 import android.content.Context;
 

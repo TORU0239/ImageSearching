@@ -2,21 +2,20 @@ package io.toru.imagesearching.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.adapter.BookmarkResultAdapter;
+import io.toru.imagesearching.framework.fragment.BaseFragment;
 
-public class BookmarkedListFragment extends Fragment {
+public class BookmarkedListFragment extends BaseFragment {
     private static final String TAG = BookmarkedListFragment.class.getSimpleName();
-    private RecyclerView searchResultRecyclerView;
-    private BookmarkResultAdapter adapter;
+
+    private RecyclerView            bookmarkResultRecyclerView;
+    private BookmarkResultAdapter   bookmarkResultAdapter;
 
     public BookmarkedListFragment() {
         super();
@@ -28,18 +27,6 @@ public class BookmarkedListFragment extends Fragment {
         Log.w(TAG, "onCreate:");
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.w(TAG, "onCreateView:");
-        View view = inflater.inflate(R.layout.fragment_bookmark, container, false);
-        searchResultRecyclerView = (RecyclerView)view.findViewById(R.id.myitem_recyclerview);
-        searchResultRecyclerView.setHasFixedSize(true);
-        searchResultRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
-        adapter = new BookmarkResultAdapter();
-        return view;
-    }
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         Log.w(TAG, "onViewCreated:");
@@ -47,15 +34,22 @@ public class BookmarkedListFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Log.w(TAG, "onResume");
+    public int getLayoutId() {
+        return R.layout.fragment_bookmark;
     }
 
-    // test code
-    public void test() {
-        searchResultRecyclerView.invalidate();
-        adapter.notifyDataSetChanged();
-        Log.w(TAG, "size :: " + adapter.getItemCount());
+    @Override
+    public void initView(View rootView) {
+        bookmarkResultRecyclerView = (RecyclerView)rootView.findViewById(R.id.myitem_recyclerview);
+        bookmarkResultRecyclerView.setHasFixedSize(true);
+        bookmarkResultRecyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), SPAN_COUNT));
+        bookmarkResultAdapter = new BookmarkResultAdapter();
+    }
+
+    @Override
+    public void selectedAction() {
+        bookmarkResultRecyclerView.invalidate();
+        bookmarkResultAdapter.notifyDataSetChanged();
+        Log.w(TAG, "size :: " + bookmarkResultAdapter.getItemCount());
     }
 }
