@@ -7,15 +7,22 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.adapter.BookmarkResultAdapter;
+import io.toru.imagesearching.app.ImageSearchApplication;
 import io.toru.imagesearching.framework.fragment.BaseFragment;
+import io.toru.imagesearching.model.SearchResultModel;
 
 public class BookmarkedListFragment extends BaseFragment {
     private static final String TAG = BookmarkedListFragment.class.getSimpleName();
 
     private RecyclerView            bookmarkResultRecyclerView;
     private BookmarkResultAdapter   bookmarkResultAdapter;
+
+    private List<SearchResultModel> bookmarkedList;
 
     public BookmarkedListFragment() {
         super();
@@ -25,6 +32,7 @@ public class BookmarkedListFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.w(TAG, "onCreate:");
+        bookmarkedList = new ArrayList<>();
     }
 
     @Override
@@ -43,13 +51,14 @@ public class BookmarkedListFragment extends BaseFragment {
         bookmarkResultRecyclerView = (RecyclerView)rootView.findViewById(R.id.myitem_recyclerview);
         bookmarkResultRecyclerView.setHasFixedSize(true);
         bookmarkResultRecyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), SPAN_COUNT));
-        bookmarkResultAdapter = new BookmarkResultAdapter();
+        bookmarkResultAdapter = new BookmarkResultAdapter(bookmarkedList);
     }
 
     @Override
     public void selectedAction() {
-        bookmarkResultRecyclerView.invalidate();
+        bookmarkedList.clear();
+        bookmarkedList.addAll(ImageSearchApplication.getApplication().getModelList());
+        bookmarkResultRecyclerView.setAdapter(bookmarkResultAdapter);
         bookmarkResultAdapter.notifyDataSetChanged();
-        Log.w(TAG, "size :: " + bookmarkResultAdapter.getItemCount());
     }
 }

@@ -16,22 +16,18 @@ import io.toru.imagesearching.viewholder.SearchResultViewHolder;
  */
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultViewHolder>{
     private static final String TAG = SearchResultAdapter.class.getSimpleName();
-
     private List<SearchResultModel> modelList;
-
     public SearchResultAdapter(List<SearchResultModel> list) {
         modelList = list;
     }
 
-    public SearchResultAdapter() {
-    }
+    public SearchResultAdapter() {}
 
     // 새로운 뷰를 만들어 준다
     @Override
     public SearchResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder, parent, false);
-        SearchResultViewHolder viewholder = new SearchResultViewHolder(rootView);
-        return viewholder;
+        return new SearchResultViewHolder(rootView);
     }
 
     // viewholder 를 이용해서 item 을 replacing.

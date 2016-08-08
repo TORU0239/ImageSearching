@@ -31,8 +31,7 @@ public class BookmarkResultAdapter extends RecyclerView.Adapter<BookmarkResultVi
     @Override
     public BookmarkResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder, parent, false);
-        BookmarkResultViewHolder viewholder = new BookmarkResultViewHolder(rootView);
-        return viewholder;
+        return new BookmarkResultViewHolder(rootView);
     }
 
     // viewholder 를 이용해서 item 을 replacing.
@@ -44,6 +43,7 @@ public class BookmarkResultAdapter extends RecyclerView.Adapter<BookmarkResultVi
 
     @Override
     public int getItemCount() {
-        return ImageSearchApplication.getApplication().getModelList().size();
+//        return ImageSearchApplication.getApplication().getModelList().size();
+        return modelList.size();
     }
 }

@@ -7,14 +7,18 @@ import android.util.Log;
 
 import java.util.List;
 
+import io.toru.imagesearching.R;
+import io.toru.imagesearching.app.ImageSearchApplication;
+import io.toru.imagesearching.framework.fragment.BaseFragment;
+
 /**
  * Created by toru on 2016. 8. 8..
  */
 public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
     private static final String TAG = MainViewPagerAdapter.class.getSimpleName();
+    private List<BaseFragment> fragmentList;
 
-    private List<Fragment> fragmentList;
-    public MainViewPagerAdapter(FragmentManager fm, List<Fragment> fragmentList) {
+    public MainViewPagerAdapter(FragmentManager fm, List<BaseFragment> fragmentList) {
         super(fm);
         this.fragmentList = fragmentList;
     }
@@ -23,9 +27,9 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "List";
+                return ImageSearchApplication.getApplication().getString(R.string.search_tab_name);
             case 1:
-                return "Widgets";
+                return ImageSearchApplication.getApplication().getString(R.string.bookmark_tab_name);
         }
         throw new IndexOutOfBoundsException();
     }

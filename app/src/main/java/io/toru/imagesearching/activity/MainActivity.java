@@ -32,6 +32,7 @@ import io.toru.imagesearching.fragment.SearchedListFragment;
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.fragment.BookmarkedListFragment;
 import io.toru.imagesearching.framework.activity.BaseActivity;
+import io.toru.imagesearching.framework.fragment.BaseFragment;
 import io.toru.imagesearching.model.OriginalSearchingResultModel;
 import io.toru.imagesearching.network.ISearchingApi;
 import io.toru.imagesearching.network.NetworkRestClient;
@@ -50,7 +51,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        final ArrayList<Fragment> fragmentList = new ArrayList<>();
+        final ArrayList<BaseFragment> fragmentList = new ArrayList<>();
         fragmentList.add(new SearchedListFragment());
         fragmentList.add(new BookmarkedListFragment());
 
@@ -62,15 +63,8 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                Fragment fragment = fragmentList.get(position);
-
-                if(fragment instanceof SearchedListFragment){
-                    ((SearchedListFragment) fragment).selectedAction();
-                }
-                else if(fragment instanceof BookmarkedListFragment){
-                    ((BookmarkedListFragment) fragment).test();
-                }
-                else{}
+                BaseFragment fragment = fragmentList.get(position);
+                fragment.selectedAction();
             }
 
             @Override
