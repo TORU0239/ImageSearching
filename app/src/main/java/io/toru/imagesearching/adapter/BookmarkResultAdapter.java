@@ -43,7 +43,7 @@ public class BookmarkResultAdapter extends RecyclerView.Adapter<BookmarkResultVi
 
     @Override
     public int getItemCount() {
-//        return ImageSearchApplication.getApplication().getModelList().size();
-        return modelList.size();
+        return ImageSearchApplication.getApplication().getModelList().size();
+//        return modelList.size();
     }
 }

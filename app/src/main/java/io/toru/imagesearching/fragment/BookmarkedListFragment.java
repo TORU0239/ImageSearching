@@ -12,7 +12,6 @@ import java.util.List;
 
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.adapter.BookmarkResultAdapter;
-import io.toru.imagesearching.app.ImageSearchApplication;
 import io.toru.imagesearching.framework.fragment.BaseFragment;
 import io.toru.imagesearching.model.SearchResultModel;
 
@@ -51,14 +50,15 @@ public class BookmarkedListFragment extends BaseFragment {
         bookmarkResultRecyclerView = (RecyclerView)rootView.findViewById(R.id.myitem_recyclerview);
         bookmarkResultRecyclerView.setHasFixedSize(true);
         bookmarkResultRecyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), SPAN_COUNT));
-        bookmarkResultAdapter = new BookmarkResultAdapter(bookmarkedList);
+        bookmarkResultAdapter = new BookmarkResultAdapter();
     }
 
     @Override
     public void selectedAction() {
-        bookmarkedList.clear();
-        bookmarkedList.addAll(ImageSearchApplication.getApplication().getModelList());
+        if(bookmarkResultAdapter != null){
+            bookmarkResultAdapter = null;
+        }
+        bookmarkResultAdapter = new BookmarkResultAdapter();
         bookmarkResultRecyclerView.setAdapter(bookmarkResultAdapter);
-        bookmarkResultAdapter.notifyDataSetChanged();
     }
 }
