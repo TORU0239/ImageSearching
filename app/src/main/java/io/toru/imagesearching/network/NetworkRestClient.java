@@ -6,8 +6,6 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 
-import io.toru.imagesearching.adapter.MainViewPagerAdapter;
-import io.toru.imagesearching.fragment.SearchedListFragment;
 import io.toru.imagesearching.model.OriginalSearchingResultModel;
 import io.toru.imagesearching.utility.Util;
 import okhttp3.Interceptor;

@@ -1,4 +1,4 @@
-package io.toru.imagesearching.fragment;
+package io.toru.imagesearching.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,14 +6,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.TextView;
 
 import io.toru.imagesearching.R;
-import io.toru.imagesearching.adapter.BookmarkResultAdapter;
-import io.toru.imagesearching.framework.fragment.BaseFragment;
-import io.toru.imagesearching.model.SearchResultModel;
+import io.toru.imagesearching.base.fragment.BaseFragment;
+import io.toru.imagesearching.view.adapter.BookmarkResultAdapter;
 
 public class BookmarkedListFragment extends BaseFragment {
     private static final String TAG = BookmarkedListFragment.class.getSimpleName();
@@ -21,7 +18,7 @@ public class BookmarkedListFragment extends BaseFragment {
     private RecyclerView            bookmarkResultRecyclerView;
     private BookmarkResultAdapter   bookmarkResultAdapter;
 
-    private List<SearchResultModel> bookmarkedList;
+    private TextView emptyTextView;
 
     public BookmarkedListFragment() {
         super();
@@ -31,7 +28,6 @@ public class BookmarkedListFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.w(TAG, "onCreate:");
-        bookmarkedList = new ArrayList<>();
     }
 
     @Override
@@ -52,15 +48,25 @@ public class BookmarkedListFragment extends BaseFragment {
         bookmarkResultRecyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), SPAN_COUNT));
         bookmarkResultAdapter = new BookmarkResultAdapter();
         bookmarkResultRecyclerView.setAdapter(bookmarkResultAdapter);
+
+        emptyTextView = (TextView)rootView.findViewById(R.id.myitem_empty_view);
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
         Log.d("TAG", "isVisibleToUser : " + isVisibleToUser);
         if (isVisibleToUser) {
-            bookmarkResultAdapter.notifyDataSetChanged();
+            if(bookmarkResultAdapter.getItemCount() <= 0){
+                bookmarkResultRecyclerView.setVisibility(View.GONE);
+                emptyTextView.setVisibility(View.VISIBLE);
+            }
+            else{
+                bookmarkResultRecyclerView.setVisibility(View.VISIBLE);
+                emptyTextView.setVisibility(View.GONE);
+                bookmarkResultAdapter.notifyDataSetChanged();
+            }
+
         }
     }
 }

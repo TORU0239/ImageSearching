@@ -5,5 +5,14 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/searching_recycleview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/searching_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/item_empty"
+        android:textSize="40sp"
+        android:visibility="visible"/>
 </RelativeLayout>

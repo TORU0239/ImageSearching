@@ -1,4 +1,4 @@
-package io.toru.imagesearching.fragment;
+package io.toru.imagesearching.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,19 +8,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.toru.imagesearching.R;
-import io.toru.imagesearching.adapter.SearchResultAdapter;
-import io.toru.imagesearching.framework.fragment.BaseFragment;
+import io.toru.imagesearching.view.adapter.SearchResultAdapter;
+import io.toru.imagesearching.base.fragment.BaseFragment;
 import io.toru.imagesearching.model.SearchResultModel;
 
 public class SearchedListFragment extends BaseFragment {
     private static final String TAG = SearchedListFragment.class.getSimpleName();
     private RecyclerView searchResultRecyclerView;
     private SearchResultAdapter resultAdapter;
+
+    private TextView emptyTextView;
 
     private List<SearchResultModel> searchResultList;
 
@@ -29,9 +32,17 @@ public class SearchedListFragment extends BaseFragment {
     }
 
     public void updateView(List<SearchResultModel> modelList) {
-        searchResultList.clear();
-        searchResultList.addAll(modelList);
-        resultAdapter.notifyDataSetChanged();
+        if(modelList.size() > 0){
+            searchResultList.clear();
+            searchResultList.addAll(modelList);
+            resultAdapter.notifyDataSetChanged();
+            searchResultRecyclerView.setVisibility(View.VISIBLE);
+            emptyTextView.setVisibility(View.GONE);
+        }
+        else{
+            searchResultRecyclerView.setVisibility(View.GONE);
+            emptyTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -45,6 +56,7 @@ public class SearchedListFragment extends BaseFragment {
         searchResultRecyclerView.setHasFixedSize(false);
         searchResultRecyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), SPAN_COUNT));
         resultAdapter = new SearchResultAdapter(searchResultList);
+        emptyTextView = (TextView)rootView.findViewById(R.id.searching_empty_view);
     }
 
     @Override

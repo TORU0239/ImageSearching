@@ -1,22 +1,22 @@
-package io.toru.imagesearching.viewholder;
+package io.toru.imagesearching.view.viewholder;
 
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import io.toru.imagesearching.R;
 import io.toru.imagesearching.app.ImageSearchApplication;
-import io.toru.imagesearching.framework.viewholder.BaseResultViewHolder;
+import io.toru.imagesearching.R;
+import io.toru.imagesearching.base.viewholder.BaseResultViewHolder;
 import io.toru.imagesearching.model.SearchResultModel;
 
 /**
  * Created by toru on 2016. 8. 8..
  */
-public class BookmarkResultViewHolder extends BaseResultViewHolder {
+public class SearchResultViewHolder extends BaseResultViewHolder {
     private ImageView searchedImageView;
 
-    public BookmarkResultViewHolder(View itemView) {
+    public SearchResultViewHolder(View itemView) {
         super(itemView);
     }
 
@@ -27,6 +27,8 @@ public class BookmarkResultViewHolder extends BaseResultViewHolder {
             @Override
             public void onClick(View v) {
                 ImageSearchApplication.getApplication().getModelList().add(model);
+                // TODO : 추가될 때매다 뷰에 알려 주는 부분을 추가해야 함
+                // TODO : 아니면 탭이 바뀔 때, 내 보관함에서 보관함을 갱신해 주어야 함
             }
         });
         Glide.with(ImageSearchApplication.getApplication()).load(model.getImage()).into(searchedImageView);

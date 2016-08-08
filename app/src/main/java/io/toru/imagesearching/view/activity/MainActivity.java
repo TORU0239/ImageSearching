@@ -1,4 +1,4 @@
-package io.toru.imagesearching.activity;
+package io.toru.imagesearching.view.activity;
 
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
@@ -7,41 +7,26 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.toru.imagesearching.adapter.MainViewPagerAdapter;
-import io.toru.imagesearching.fragment.SearchedListFragment;
+import io.toru.imagesearching.view.adapter.MainViewPagerAdapter;
+import io.toru.imagesearching.view.fragment.SearchedListFragment;
 import io.toru.imagesearching.R;
-import io.toru.imagesearching.fragment.BookmarkedListFragment;
-import io.toru.imagesearching.framework.activity.BaseActivity;
-import io.toru.imagesearching.framework.fragment.BaseFragment;
-import io.toru.imagesearching.model.OriginalSearchingResultModel;
+import io.toru.imagesearching.view.fragment.BookmarkedListFragment;
+import io.toru.imagesearching.base.activity.BaseActivity;
+import io.toru.imagesearching.base.fragment.BaseFragment;
 import io.toru.imagesearching.model.SearchResultModel;
 import io.toru.imagesearching.network.ISearchResultListener;
-import io.toru.imagesearching.network.ISearchingApi;
 import io.toru.imagesearching.network.NetworkRestClient;
-import io.toru.imagesearching.utility.Util;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getSimpleName();

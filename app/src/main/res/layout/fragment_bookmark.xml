@@ -5,6 +5,14 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/myitem_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/myitem_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/item_empty"
+        android:textSize="40sp"
+        android:visibility="visible"/>
 </RelativeLayout>

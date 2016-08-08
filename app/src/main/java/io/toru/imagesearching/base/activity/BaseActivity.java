@@ -1,4 +1,4 @@
-package io.toru.imagesearching.framework.activity;
+package io.toru.imagesearching.base.activity;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;

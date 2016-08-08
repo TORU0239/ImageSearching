@@ -1,4 +1,4 @@
-package io.toru.imagesearching.adapter;
+package io.toru.imagesearching.view.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.model.SearchResultModel;
-import io.toru.imagesearching.viewholder.SearchResultViewHolder;
+import io.toru.imagesearching.view.viewholder.SearchResultViewHolder;
 
 /**
  * Created by toru on 2016. 8. 8..
