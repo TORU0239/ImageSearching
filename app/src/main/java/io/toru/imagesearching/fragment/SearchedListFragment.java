@@ -10,21 +10,31 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.adapter.SearchResultAdapter;
 import io.toru.imagesearching.framework.fragment.BaseFragment;
 import io.toru.imagesearching.model.SearchResultModel;
 
-public class ListFragment extends BaseFragment {
+public class SearchedListFragment extends BaseFragment {
 
-    private static final String TAG = ListFragment.class.getSimpleName();
+    private static final String TAG = SearchedListFragment.class.getSimpleName();
     private static final int SPAN_COUNT = 2;
 
     private RecyclerView searchResultRecyclerView;
+    private SearchResultAdapter resultAdapter;
 
-    public ListFragment() {
+    private List<SearchResultModel> searchResultList;
+
+    public SearchedListFragment() {
         super();
+    }
+
+    public void updateView(List<SearchResultModel> modelList) {
+        searchResultList.clear();
+        searchResultList.addAll(modelList);
+        resultAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -37,23 +47,37 @@ public class ListFragment extends BaseFragment {
         searchResultRecyclerView = (RecyclerView) rootView.findViewById(R.id.searching_recycleview);
         searchResultRecyclerView.setHasFixedSize(true);
         searchResultRecyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), SPAN_COUNT));
+        resultAdapter = new SearchResultAdapter(searchResultList);
     }
 
     @Override
     public void selectedAction() {
-        Log.w(TAG, "test: test, ListFragment");
+        Log.w(TAG, "test: test, SearchedListFragment");
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Log.w(TAG, "onCreate");
         super.onCreate(savedInstanceState);
+        searchResultList = new ArrayList<>();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.w(TAG, "onViewCreated");
+        searchResultRecyclerView.setAdapter(resultAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     private ArrayList<SearchResultModel> testImage() {
@@ -92,17 +116,5 @@ public class ListFragment extends BaseFragment {
         searchedModelList.add(model3);
 
         return searchedModelList;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Log.w(TAG, "onViewCreated");
-        searchResultRecyclerView.setAdapter(new SearchResultAdapter(testImage()));
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 }

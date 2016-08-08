@@ -1,4 +1,4 @@
-package io.toru.imagesearching;
+package io.toru.imagesearching.app;
 
 import android.app.Application;
 

@@ -6,13 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-
 import java.util.List;
 
-import io.toru.imagesearching.ImageSearchApplication;
+import io.toru.imagesearching.app.ImageSearchApplication;
 import io.toru.imagesearching.R;
-import io.toru.imagesearching.fragment.WidgetFragment;
 import io.toru.imagesearching.model.SearchResultModel;
 import io.toru.imagesearching.viewholder.SearchResultViewHolder;
 

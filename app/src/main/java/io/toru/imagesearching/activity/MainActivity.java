@@ -26,20 +26,18 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.toru.imagesearching.fragment.ICommunicationListener;
-import io.toru.imagesearching.fragment.ListFragment;
+import io.toru.imagesearching.adapter.MainViewPagerAdapter;
+import io.toru.imagesearching.fragment.SearchedListFragment;
 import io.toru.imagesearching.R;
-import io.toru.imagesearching.fragment.WidgetFragment;
+import io.toru.imagesearching.fragment.BookmarkedListFragment;
 import io.toru.imagesearching.model.OriginalSearchingResultModel;
-import io.toru.imagesearching.model.SearchResultModel;
 import io.toru.imagesearching.network.ISearchingApi;
 import io.toru.imagesearching.network.NetworkRestClient;
-import io.toru.imagesearching.utility.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements ICommunicationListener {
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private ViewPager viewPager;
 
@@ -53,11 +51,11 @@ public class MainActivity extends AppCompatActivity implements ICommunicationLis
         setSupportActionBar(toolbar);
 
         final ArrayList<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new ListFragment());
-        fragmentList.add(new WidgetFragment());
+        fragmentList.add(new SearchedListFragment());
+        fragmentList.add(new BookmarkedListFragment());
 
         viewPager = (ViewPager) findViewById(R.id.main_viewpager);
-        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragmentList));
+        viewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), fragmentList));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
@@ -66,11 +64,11 @@ public class MainActivity extends AppCompatActivity implements ICommunicationLis
             public void onPageSelected(int position) {
                 Fragment fragment = fragmentList.get(position);
 
-                if(fragment instanceof ListFragment){
-                    ((ListFragment) fragment).selectedAction();
+                if(fragment instanceof SearchedListFragment){
+                    ((SearchedListFragment) fragment).selectedAction();
                 }
-                else if(fragment instanceof WidgetFragment){
-                    ((WidgetFragment) fragment).test();
+                else if(fragment instanceof BookmarkedListFragment){
+                    ((BookmarkedListFragment) fragment).test();
                 }
                 else{}
             }
@@ -134,8 +132,8 @@ public class MainActivity extends AppCompatActivity implements ICommunicationLis
                     Log.w(TAG, "onResponse: message::" + response.message());
                     Log.d("MainActivity", "response = " + new Gson().toJson(result));
 
-                    ListFragment listFragment = (ListFragment) ((ViewPagerAdapter)viewPager.getAdapter()).getItem(0);
-                    listFragment.selectedAction();
+                    SearchedListFragment listFragment = (SearchedListFragment) ((MainViewPagerAdapter)viewPager.getAdapter()).getItem(0);
+                    listFragment.updateView(result.getChannel().getItem());
                 }
 
                 @Override
@@ -144,48 +142,11 @@ public class MainActivity extends AppCompatActivity implements ICommunicationLis
         }
         else{
             Toast.makeText(MainActivity.this, "no item to search.", Toast.LENGTH_SHORT).show();
-
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onCommunication(Object object) {
-
-    }
-
-    class ViewPagerAdapter extends FragmentStatePagerAdapter {
-        private List<Fragment> fragmentList;
-
-        public ViewPagerAdapter(FragmentManager fm, List<Fragment> fragmentList) {
-            super(fm);
-            this.fragmentList = fragmentList;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "List";
-                case 1:
-                    return "Widgets";
-            }
-            throw new IndexOutOfBoundsException();
-        }
-
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            Log.w(TAG, "getItem: position :: " + position);
-            return fragmentList.get(position);
-        }
     }
 }

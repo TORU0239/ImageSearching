@@ -13,12 +13,12 @@ import android.view.ViewGroup;
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.adapter.BookmarkResultAdapter;
 
-public class WidgetFragment extends Fragment {
-    private static final String TAG = WidgetFragment.class.getSimpleName();
+public class BookmarkedListFragment extends Fragment {
+    private static final String TAG = BookmarkedListFragment.class.getSimpleName();
     private RecyclerView searchResultRecyclerView;
     private BookmarkResultAdapter adapter;
 
-    public WidgetFragment() {
+    public BookmarkedListFragment() {
         super();
     }
 
