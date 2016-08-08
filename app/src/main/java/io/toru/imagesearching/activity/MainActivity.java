@@ -12,6 +12,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -30,6 +31,7 @@ import io.toru.imagesearching.adapter.MainViewPagerAdapter;
 import io.toru.imagesearching.fragment.SearchedListFragment;
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.fragment.BookmarkedListFragment;
+import io.toru.imagesearching.framework.activity.BaseActivity;
 import io.toru.imagesearching.model.OriginalSearchingResultModel;
 import io.toru.imagesearching.network.ISearchingApi;
 import io.toru.imagesearching.network.NetworkRestClient;
@@ -37,19 +39,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+public class MainActivity extends BaseActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private ViewPager viewPager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.main_toolbar);
-        toolbar.setTitle(R.string.kakao_name);
-        setSupportActionBar(toolbar);
-
+    @Override
+    public void initView() {
         final ArrayList<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new SearchedListFragment());
         fragmentList.add(new BookmarkedListFragment());
@@ -79,16 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tab = (TabLayout) findViewById(R.id.main_tab_layout);
         tab.setupWithViewPager(viewPager);
-        setTaskDescription();
-    }
-
-    @TargetApi(23)
-    private void setTaskDescription() {
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
-            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-            ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name).toString(), bm, getResources().getColor(R.color.kakaoMain, null));
-            setTaskDescription(taskDescription);
-        }
+        setKakaoAppTaskDescription();
     }
 
     @Override
@@ -118,9 +109,22 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @TargetApi(21)
+    private void setKakaoAppTaskDescription() {
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+            ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name), bm, ContextCompat.getColor(MainActivity.this, R.color.kakaoMain));
+            setTaskDescription(taskDescription);
+        }
+    }
+
     private void performQuery(String item) {
         Log.w(TAG, "performQuery: " + item);
-
         if (item.length() > 0) {
             ISearchingApi service = NetworkRestClient.getSearchingApi();
             Call<OriginalSearchingResultModel> call = service.getQueriedImageList(item);
@@ -143,10 +147,5 @@ public class MainActivity extends AppCompatActivity {
         else{
             Toast.makeText(MainActivity.this, "no item to search.", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
     }
 }

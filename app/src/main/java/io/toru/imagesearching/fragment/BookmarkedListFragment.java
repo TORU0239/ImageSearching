@@ -32,7 +32,7 @@ public class BookmarkedListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.w(TAG, "onCreateView:");
-        View view = inflater.inflate(R.layout.fragment_tab_2, container, false);
+        View view = inflater.inflate(R.layout.fragment_bookmark, container, false);
         searchResultRecyclerView = (RecyclerView)view.findViewById(R.id.myitem_recyclerview);
         searchResultRecyclerView.setHasFixedSize(true);
         searchResultRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));

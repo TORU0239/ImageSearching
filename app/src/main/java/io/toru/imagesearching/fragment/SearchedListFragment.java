@@ -39,7 +39,7 @@ public class SearchedListFragment extends BaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_tab_1;
+        return R.layout.fragment_search;
     }
 
     @Override

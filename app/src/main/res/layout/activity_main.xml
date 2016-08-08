@@ -12,10 +12,11 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <!--app:layout_scrollFlags="scroll|enterAlways"-->
         <android.support.v7.widget.Toolbar
-            android:id="@+id/main_toolbar"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
+            app:title="@string/app_name"
             app:layout_scrollFlags="scroll|enterAlways|snap"/>
         <android.support.design.widget.TabLayout
             style="@style/ImageSearchTabAppearance"
