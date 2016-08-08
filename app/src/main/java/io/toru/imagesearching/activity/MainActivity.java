@@ -34,6 +34,8 @@ import io.toru.imagesearching.fragment.BookmarkedListFragment;
 import io.toru.imagesearching.framework.activity.BaseActivity;
 import io.toru.imagesearching.framework.fragment.BaseFragment;
 import io.toru.imagesearching.model.OriginalSearchingResultModel;
+import io.toru.imagesearching.model.SearchResultModel;
+import io.toru.imagesearching.network.ISearchResultListener;
 import io.toru.imagesearching.network.ISearchingApi;
 import io.toru.imagesearching.network.NetworkRestClient;
 import io.toru.imagesearching.utility.Util;
@@ -116,32 +118,12 @@ public class MainActivity extends BaseActivity {
     }
 
     private void performQuery(String item) {
-        if (item.length() > 0) {
-            ISearchingApi service = NetworkRestClient.getSearchingApi();
-            Call<OriginalSearchingResultModel> call = service.getQueriedImageList(Util.API_KEY, item);
-            call.enqueue(new Callback<OriginalSearchingResultModel>() {
-                @Override
-                public void onResponse(Call<OriginalSearchingResultModel> call, Response<OriginalSearchingResultModel> response) {
-                    OriginalSearchingResultModel result = response.body();
-                    Log.w(TAG, "onResponse: message::" + response.code());
-                    Log.w(TAG, "onResponse: message::" + response.message());
-                    Log.d("MainActivity", "response = " + new Gson().toJson(result));
-
-                    SearchedListFragment listFragment = (SearchedListFragment) ((MainViewPagerAdapter)viewPager.getAdapter()).getItem(0);
-                    listFragment.updateView(result.getChannel().getItem());
-                }
-
-                @Override
-                public void onFailure(Call<OriginalSearchingResultModel> call, Throwable t) {
-                    try {
-                        Log.e(TAG, t.getMessage());
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            });
-        }
+        NetworkRestClient.getSearchResult(item, new ISearchResultListener() {
+            @Override
+            public void onSearchEnd(List<SearchResultModel> searchResult) {
+                SearchedListFragment listFragment = (SearchedListFragment) ((MainViewPagerAdapter)viewPager.getAdapter()).getItem(0);
+                listFragment.updateView(searchResult);
+            }
+        });
     }
 }

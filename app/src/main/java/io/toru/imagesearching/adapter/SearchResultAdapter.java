@@ -26,7 +26,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultViewHo
     // 새로운 뷰를 만들어 준다
     @Override
     public SearchResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder, parent, false);
+        View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_viewholder, parent, false);
         return new SearchResultViewHolder(rootView);
     }
 

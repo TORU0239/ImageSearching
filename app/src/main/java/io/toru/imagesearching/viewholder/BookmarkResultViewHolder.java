@@ -27,8 +27,6 @@ public class BookmarkResultViewHolder extends BaseResultViewHolder {
             @Override
             public void onClick(View v) {
                 ImageSearchApplication.getApplication().getModelList().add(model);
-                // TODO : 추가될 때매다 뷰에 알려 주는 부분을 추가해야 함
-                // TODO : 아니면 탭이 바뀔 때, 내 보관함에서 보관함을 갱신해 주어야 함
             }
         });
         Glide.with(ImageSearchApplication.getApplication()).load(model.getImage()).into(searchedImageView);

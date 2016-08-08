@@ -42,7 +42,7 @@ public class SearchedListFragment extends BaseFragment {
     @Override
     public void initView(View rootView) {
         searchResultRecyclerView = (RecyclerView) rootView.findViewById(R.id.searching_recycleview);
-        searchResultRecyclerView.setHasFixedSize(true);
+        searchResultRecyclerView.setHasFixedSize(false);
         searchResultRecyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), SPAN_COUNT));
         resultAdapter = new SearchResultAdapter(searchResultList);
     }
