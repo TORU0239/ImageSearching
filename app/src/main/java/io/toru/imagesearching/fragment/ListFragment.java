@@ -8,16 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import io.toru.imagesearching.ImageSearchApplication;
 import io.toru.imagesearching.R;
+import io.toru.imagesearching.adapter.SearchResultAdapter;
 import io.toru.imagesearching.framework.fragment.BaseFragment;
 import io.toru.imagesearching.model.SearchResultModel;
 
@@ -109,51 +104,5 @@ public class ListFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-    }
-
-    class SearchResultAdapter extends RecyclerView.Adapter<SearchResultViewHolder>{
-        private List<SearchResultModel> modelList;
-
-        public SearchResultAdapter(List<SearchResultModel> list) {
-            modelList = list;
-        }
-
-        // 새로운 뷰를 만들어 준다
-        @Override
-        public SearchResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder, parent, false);
-            SearchResultViewHolder viewholder = new SearchResultViewHolder(rootView);
-            return viewholder;
-        }
-
-        // viewholder 를 이용해서 item 을 replacing.
-        @Override
-        public void onBindViewHolder(SearchResultViewHolder holder, final int position) {
-            final SearchResultModel model = modelList.get(position);
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "position :: " + position, Toast.LENGTH_SHORT).show();
-                    ImageSearchApplication.getApplication().getModelList().add(model);
-
-                    // TODO : 추가될 때매다 뷰에 알려 주는 부분을 추가해야 함
-                    // TODO : 아니면 탭이 바뀔 때, 내 보관함에서 보관함을 갱신해 주어야 함
-                }
-            });
-            Glide.with(ListFragment.this).load(model.getImage()).into(holder.searchedImageView);
-        }
-
-        @Override
-        public int getItemCount() {
-            return modelList.size();
-        }
-    }
-
-    class SearchResultViewHolder extends RecyclerView.ViewHolder{
-        private ImageView searchedImageView;
-        public SearchResultViewHolder(View itemView) {
-            super(itemView);
-            searchedImageView = (ImageView)itemView.findViewById(R.id.viewholder_imageview);
-        }
     }
 }

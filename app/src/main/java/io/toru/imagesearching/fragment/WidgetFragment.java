@@ -3,17 +3,20 @@ package io.toru.imagesearching.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import io.toru.imagesearching.R;
+import io.toru.imagesearching.adapter.BookmarkResultAdapter;
 
 public class WidgetFragment extends Fragment {
     private static final String TAG = WidgetFragment.class.getSimpleName();
-
+    private RecyclerView searchResultRecyclerView;
+    private BookmarkResultAdapter adapter;
 
     public WidgetFragment() {
         super();
@@ -29,7 +32,12 @@ public class WidgetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.w(TAG, "onCreateView:");
-        return inflater.inflate(R.layout.fragment_tab_2, container, false);
+        View view = inflater.inflate(R.layout.fragment_tab_2, container, false);
+        searchResultRecyclerView = (RecyclerView)view.findViewById(R.id.myitem_recyclerview);
+        searchResultRecyclerView.setHasFixedSize(true);
+        searchResultRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        adapter = new BookmarkResultAdapter();
+        return view;
     }
 
     @Override
@@ -46,6 +54,8 @@ public class WidgetFragment extends Fragment {
 
     // test code
     public void test() {
-        Log.w(TAG, "test: test, WidgetFragment");
+        searchResultRecyclerView.invalidate();
+        adapter.notifyDataSetChanged();
+        Log.w(TAG, "size :: " + adapter.getItemCount());
     }
 }

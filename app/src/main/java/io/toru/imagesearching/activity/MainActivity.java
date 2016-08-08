@@ -19,12 +19,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.toru.imagesearching.fragment.ICommunicationListener;
 import io.toru.imagesearching.fragment.ListFragment;
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.fragment.WidgetFragment;
@@ -37,7 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ICommunicationListener {
     private static final String TAG = "MainActivity";
     private ViewPager viewPager;
 
@@ -79,24 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tab = (TabLayout) findViewById(R.id.main_tab_layout);
         tab.setupWithViewPager(viewPager);
-//        setTaskDescription();
-
-        ISearchingApi service = NetworkRestClient.getSearchingApi();
-        Call<OriginalSearchingResultModel> call = service.getQueriedImageList("test");
-        call.enqueue(new Callback<OriginalSearchingResultModel>() {
-            @Override
-            public void onResponse(Call<OriginalSearchingResultModel> call, Response<OriginalSearchingResultModel> response) {
-                OriginalSearchingResultModel result = response.body();
-                Log.w(TAG, "onResponse: message::" + response.code());
-                Log.w(TAG, "onResponse: message::" + response.message());
-                Log.d("MainActivity", "response = " + new Gson().toJson(result));
-            }
-
-            @Override
-            public void onFailure(Call<OriginalSearchingResultModel> call, Throwable t) {
-
-            }
-        });
+        setTaskDescription();
     }
 
     @TargetApi(23)
@@ -137,11 +122,40 @@ public class MainActivity extends AppCompatActivity {
 
     private void performQuery(String item) {
         Log.w(TAG, "performQuery: " + item);
+
+        if (item.length() > 0) {
+            ISearchingApi service = NetworkRestClient.getSearchingApi();
+            Call<OriginalSearchingResultModel> call = service.getQueriedImageList(item);
+            call.enqueue(new Callback<OriginalSearchingResultModel>() {
+                @Override
+                public void onResponse(Call<OriginalSearchingResultModel> call, Response<OriginalSearchingResultModel> response) {
+                    OriginalSearchingResultModel result = response.body();
+                    Log.w(TAG, "onResponse: message::" + response.code());
+                    Log.w(TAG, "onResponse: message::" + response.message());
+                    Log.d("MainActivity", "response = " + new Gson().toJson(result));
+
+                    ListFragment listFragment = (ListFragment) ((ViewPagerAdapter)viewPager.getAdapter()).getItem(0);
+                    listFragment.selectedAction();
+                }
+
+                @Override
+                public void onFailure(Call<OriginalSearchingResultModel> call, Throwable t) {}
+            });
+        }
+        else{
+            Toast.makeText(MainActivity.this, "no item to search.", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCommunication(Object object) {
+
     }
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
