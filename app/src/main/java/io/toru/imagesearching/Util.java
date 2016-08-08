@@ -1,4 +1,4 @@
-package io.toru.imagesearching.utility;
+package io.toru.imagesearching;
 
 import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
