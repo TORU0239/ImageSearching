@@ -48,11 +48,6 @@ public class SearchedListFragment extends BaseFragment {
     }
 
     @Override
-    public void selectedAction() {
-        Log.w(TAG, "test: test, SearchedListFragment");
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Log.w(TAG, "onCreate");
         super.onCreate(savedInstanceState);

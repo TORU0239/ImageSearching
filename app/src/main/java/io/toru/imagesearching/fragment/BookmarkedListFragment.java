@@ -51,14 +51,16 @@ public class BookmarkedListFragment extends BaseFragment {
         bookmarkResultRecyclerView.setHasFixedSize(true);
         bookmarkResultRecyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), SPAN_COUNT));
         bookmarkResultAdapter = new BookmarkResultAdapter();
+        bookmarkResultRecyclerView.setAdapter(bookmarkResultAdapter);
     }
 
     @Override
-    public void selectedAction() {
-        if(bookmarkResultAdapter != null){
-            bookmarkResultAdapter = null;
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        Log.d("TAG", "isVisibleToUser : " + isVisibleToUser);
+        if (isVisibleToUser) {
+            bookmarkResultAdapter.notifyDataSetChanged();
         }
-        bookmarkResultAdapter = new BookmarkResultAdapter();
-        bookmarkResultRecyclerView.setAdapter(bookmarkResultAdapter);
     }
 }

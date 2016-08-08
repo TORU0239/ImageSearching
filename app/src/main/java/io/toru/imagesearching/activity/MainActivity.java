@@ -36,6 +36,7 @@ import io.toru.imagesearching.framework.fragment.BaseFragment;
 import io.toru.imagesearching.model.OriginalSearchingResultModel;
 import io.toru.imagesearching.network.ISearchingApi;
 import io.toru.imagesearching.network.NetworkRestClient;
+import io.toru.imagesearching.utility.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,10 +63,7 @@ public class MainActivity extends BaseActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
             @Override
-            public void onPageSelected(int position) {
-                BaseFragment fragment = fragmentList.get(position);
-                fragment.selectedAction();
-            }
+            public void onPageSelected(int position) {}
 
             @Override
             public void onPageScrollStateChanged(int state) {}
@@ -118,10 +116,9 @@ public class MainActivity extends BaseActivity {
     }
 
     private void performQuery(String item) {
-        Log.w(TAG, "performQuery: " + item);
         if (item.length() > 0) {
             ISearchingApi service = NetworkRestClient.getSearchingApi();
-            Call<OriginalSearchingResultModel> call = service.getQueriedImageList(item);
+            Call<OriginalSearchingResultModel> call = service.getQueriedImageList(Util.API_KEY, item);
             call.enqueue(new Callback<OriginalSearchingResultModel>() {
                 @Override
                 public void onResponse(Call<OriginalSearchingResultModel> call, Response<OriginalSearchingResultModel> response) {
@@ -135,11 +132,16 @@ public class MainActivity extends BaseActivity {
                 }
 
                 @Override
-                public void onFailure(Call<OriginalSearchingResultModel> call, Throwable t) {}
+                public void onFailure(Call<OriginalSearchingResultModel> call, Throwable t) {
+                    try {
+                        Log.e(TAG, t.getMessage());
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
             });
-        }
-        else{
-            Toast.makeText(MainActivity.this, "no item to search.", Toast.LENGTH_SHORT).show();
         }
     }
 }

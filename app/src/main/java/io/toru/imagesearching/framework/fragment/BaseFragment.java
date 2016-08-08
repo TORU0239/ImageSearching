@@ -20,7 +20,6 @@ public abstract class BaseFragment extends Fragment{
 
     public abstract int getLayoutId();
     public abstract void initView(View rootView);
-    public abstract void selectedAction();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
