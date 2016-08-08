@@ -1,5 +1,8 @@
 package io.toru.imagesearching.view.viewholder;
 
+import android.graphics.PorterDuff;
+import android.support.v4.content.ContextCompat;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -23,12 +26,33 @@ public class SearchResultViewHolder extends BaseResultViewHolder {
     @Override
     public void updateView(final SearchResultModel model) {
         searchedImageView = (ImageView)itemView.findViewById(R.id.viewholder_imageview);
-        searchedImageView.setOnClickListener(new View.OnClickListener() {
+        searchedImageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                ImageSearchApplication.getApplication().getModelList().add(model);
-                // TODO : 추가될 때매다 뷰에 알려 주는 부분을 추가해야 함
-                // TODO : 아니면 탭이 바뀔 때, 내 보관함에서 보관함을 갱신해 주어야 함
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction())  {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        // argb
+                        view.getDrawable().setColorFilter(ContextCompat.getColor(v.getContext(), R.color.imageview_filter_color), PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+
+                    case MotionEvent.ACTION_UP: {
+                        ImageView view = (ImageView) v;
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        ImageSearchApplication.getApplication().getModelList().add(model);
+                        break;
+                    }
+                }
+                return true;
             }
         });
         Glide.with(ImageSearchApplication.getApplication()).load(model.getImage()).into(searchedImageView);

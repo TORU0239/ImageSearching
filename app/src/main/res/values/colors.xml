@@ -15,4 +15,6 @@
     <color name="kakao_tab_color">#f2f2f2</color>
     <color name="kakao_recycler_bg">#f2f2f5</color>
 
+    <color name="imageview_filter_color">#77000000</color>
+
 </resources>
