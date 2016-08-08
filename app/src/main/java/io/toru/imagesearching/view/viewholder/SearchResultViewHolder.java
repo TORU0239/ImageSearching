@@ -48,7 +48,7 @@ public class SearchResultViewHolder extends BaseResultViewHolder {
                         ImageView view = (ImageView) v;
                         view.getDrawable().clearColorFilter();
                         view.invalidate();
-                        ImageSearchApplication.getApplication().getModelList().add(model);
+                        ImageSearchApplication.getApplication().addModelList(model);
                         break;
                     }
                 }

@@ -33,4 +33,11 @@ public class ImageSearchApplication extends Application {
     public void setModelList(List<SearchResultModel> modelList) {
         this.modelList = modelList;
     }
+
+    public void addModelList(SearchResultModel model){
+        if(modelList.contains(model)){
+            modelList.remove(model);
+        }
+        modelList.add(model);
+    }
 }
