@@ -109,6 +109,6 @@ public class MainActivity extends BaseActivity implements MainView{
     @Override
     public void onQueryResult(List<SearchResultModel> searchResult) {
         SearchedListFragment listFragment = (SearchedListFragment) ((MainViewPagerAdapter)viewPager.getAdapter()).getItem(0);
-        listFragment.updateView(searchResult);
+        listFragment.onNotifyDataSetChanged(searchResult);
     }
 }

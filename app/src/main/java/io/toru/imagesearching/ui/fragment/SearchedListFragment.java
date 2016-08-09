@@ -14,11 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.toru.imagesearching.R;
+import io.toru.imagesearching.presenter.SearchResultPresenterImpl;
 import io.toru.imagesearching.ui.adapter.SearchResultAdapter;
 import io.toru.imagesearching.base.ui.fragment.BaseFragment;
 import io.toru.imagesearching.model.SearchResultModel;
+import io.toru.imagesearching.view.SearchResultView;
 
-public class SearchedListFragment extends BaseFragment {
+public class SearchedListFragment extends BaseFragment implements SearchResultView{
     private static final String TAG = SearchedListFragment.class.getSimpleName();
     private RecyclerView searchResultRecyclerView;
     private SearchResultAdapter resultAdapter;
@@ -27,22 +29,10 @@ public class SearchedListFragment extends BaseFragment {
 
     private List<SearchResultModel> searchResultList;
 
+    private SearchResultPresenterImpl resultPresenter;
+
     public SearchedListFragment() {
         super();
-    }
-
-    public void updateView(List<SearchResultModel> modelList) {
-        if(modelList.size() > 0){
-            searchResultList.clear();
-            searchResultList.addAll(modelList);
-            resultAdapter.notifyDataSetChanged();
-            searchResultRecyclerView.setVisibility(View.VISIBLE);
-            emptyTextView.setVisibility(View.GONE);
-        }
-        else{
-            searchResultRecyclerView.setVisibility(View.GONE);
-            emptyTextView.setVisibility(View.VISIBLE);
-        }
     }
 
     @Override
@@ -64,6 +54,7 @@ public class SearchedListFragment extends BaseFragment {
         Log.w(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         searchResultList = new ArrayList<>();
+        resultPresenter = new SearchResultPresenterImpl(this);
     }
 
     @Nullable
@@ -77,5 +68,25 @@ public class SearchedListFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         Log.w(TAG, "onViewCreated");
         searchResultRecyclerView.setAdapter(resultAdapter);
+    }
+
+    @Override
+    public void onNotifyDataSetChanged(List<SearchResultModel> modelList) {
+        if(modelList.size() > 0){
+            searchResultList.clear();
+            searchResultList.addAll(modelList);
+            resultAdapter.notifyDataSetChanged();
+            searchResultRecyclerView.setVisibility(View.VISIBLE);
+            emptyTextView.setVisibility(View.GONE);
+        }
+        else{
+            searchResultRecyclerView.setVisibility(View.GONE);
+            emptyTextView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onItemClick() {
+
     }
 }
