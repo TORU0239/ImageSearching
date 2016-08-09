@@ -32,7 +32,14 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     public abstract int getLayoutId();
     public abstract void initView();
-    public abstract BaseTaskPresenter getTaskPresenter();
+
+    public BaseTaskPresenter getTaskPresenter() {
+        return taskPresenter;
+    }
+
+    public void setTaskPresenter(BaseTaskPresenter taskPresenter) {
+        this.taskPresenter = taskPresenter;
+    }
 
     private void initToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

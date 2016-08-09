@@ -1,5 +1,7 @@
 package io.toru.imagesearching.base.presenter;
 
+import io.toru.imagesearching.base.view.BaseView;
+
 /**
  * Created by toru on 2016. 8. 9..
  */

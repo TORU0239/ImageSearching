@@ -29,8 +29,9 @@ import io.toru.imagesearching.base.ui.fragment.BaseFragment;
 import io.toru.imagesearching.model.SearchResultModel;
 import io.toru.imagesearching.network.ISearchResultListener;
 import io.toru.imagesearching.network.NetworkRestClient;
+import io.toru.imagesearching.view.MainView;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MainView{
     private static final String TAG = MainActivity.class.getSimpleName();
     private ViewPager viewPager;
 
@@ -61,11 +62,8 @@ public class MainActivity extends BaseActivity {
         TabLayout tab = (TabLayout) findViewById(R.id.main_tab_layout);
         tab.setupWithViewPager(viewPager);
         setKakaoAppTaskDescription();
-    }
 
-    @Override
-    public BaseTaskPresenter getTaskPresenter() {
-        return new MainViewPresenterImpl();
+        setTaskPresenter(new MainViewPresenterImpl(this));
     }
 
     @Override
@@ -74,14 +72,13 @@ public class MainActivity extends BaseActivity {
         MenuItem searchMenuItem = menu.findItem(R.id.action_search);
 
         SearchManager searchManager = (SearchManager)getSystemService(Context.SEARCH_SERVICE);
-
         final SearchView searchView = (SearchView)searchMenuItem.getActionView();
         searchView.setQueryHint(getString(R.string.search));
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                performQuery(query);
+                ((MainViewPresenterImpl)getTaskPresenter()).query(query);
                 searchView.clearFocus();
                 return false;
             }
@@ -109,13 +106,9 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void performQuery(String item) {
-        NetworkRestClient.getSearchResult(item, new ISearchResultListener() {
-            @Override
-            public void onSearchEnd(List<SearchResultModel> searchResult) {
-                SearchedListFragment listFragment = (SearchedListFragment) ((MainViewPagerAdapter)viewPager.getAdapter()).getItem(0);
-                listFragment.updateView(searchResult);
-            }
-        });
+    @Override
+    public void onQueryResult(List<SearchResultModel> searchResult) {
+        SearchedListFragment listFragment = (SearchedListFragment) ((MainViewPagerAdapter)viewPager.getAdapter()).getItem(0);
+        listFragment.updateView(searchResult);
     }
 }
