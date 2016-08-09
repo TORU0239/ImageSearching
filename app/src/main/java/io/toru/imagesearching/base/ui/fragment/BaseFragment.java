@@ -1,4 +1,4 @@
-package io.toru.imagesearching.base.fragment;
+package io.toru.imagesearching.base.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

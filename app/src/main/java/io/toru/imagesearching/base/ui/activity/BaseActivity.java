@@ -1,4 +1,4 @@
-package io.toru.imagesearching.base.activity;
+package io.toru.imagesearching.base.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -7,11 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import io.toru.imagesearching.R;
+import io.toru.imagesearching.base.presenter.BaseTaskPresenter;
+import io.toru.imagesearching.base.view.BaseView;
 
 /**
  * Created by toru on 2016. 8. 8..
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements BaseView{
+
+    private BaseTaskPresenter taskPresenter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public abstract int getLayoutId();
     public abstract void initView();
+    public abstract BaseTaskPresenter getTaskPresenter();
 
     private void initToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -34,4 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
         }
     }
+
+    @Override
+    public void onItemClick() {}
 }

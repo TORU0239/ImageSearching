@@ -1,4 +1,4 @@
-package io.toru.imagesearching.base.viewholder;
+package io.toru.imagesearching.base.ui.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

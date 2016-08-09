@@ -1,4 +1,4 @@
-package io.toru.imagesearching.view.fragment;
+package io.toru.imagesearching.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import io.toru.imagesearching.R;
-import io.toru.imagesearching.base.fragment.BaseFragment;
-import io.toru.imagesearching.view.adapter.BookmarkResultAdapter;
+import io.toru.imagesearching.base.ui.fragment.BaseFragment;
+import io.toru.imagesearching.ui.adapter.BookmarkResultAdapter;
 
 public class BookmarkedListFragment extends BaseFragment {
     private static final String TAG = BookmarkedListFragment.class.getSimpleName();

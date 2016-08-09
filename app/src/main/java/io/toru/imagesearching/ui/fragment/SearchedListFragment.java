@@ -1,4 +1,4 @@
-package io.toru.imagesearching.view.fragment;
+package io.toru.imagesearching.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.toru.imagesearching.R;
-import io.toru.imagesearching.view.adapter.SearchResultAdapter;
-import io.toru.imagesearching.base.fragment.BaseFragment;
+import io.toru.imagesearching.ui.adapter.SearchResultAdapter;
+import io.toru.imagesearching.base.ui.fragment.BaseFragment;
 import io.toru.imagesearching.model.SearchResultModel;
 
 public class SearchedListFragment extends BaseFragment {

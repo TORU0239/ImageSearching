@@ -1,4 +1,4 @@
-package io.toru.imagesearching.view.activity;
+package io.toru.imagesearching.ui.activity;
 
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
@@ -18,12 +18,14 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.toru.imagesearching.view.adapter.MainViewPagerAdapter;
-import io.toru.imagesearching.view.fragment.SearchedListFragment;
+import io.toru.imagesearching.base.presenter.BaseTaskPresenter;
+import io.toru.imagesearching.presenter.MainViewPresenterImpl;
+import io.toru.imagesearching.ui.adapter.MainViewPagerAdapter;
+import io.toru.imagesearching.ui.fragment.SearchedListFragment;
 import io.toru.imagesearching.R;
-import io.toru.imagesearching.view.fragment.BookmarkedListFragment;
-import io.toru.imagesearching.base.activity.BaseActivity;
-import io.toru.imagesearching.base.fragment.BaseFragment;
+import io.toru.imagesearching.ui.fragment.BookmarkedListFragment;
+import io.toru.imagesearching.base.ui.activity.BaseActivity;
+import io.toru.imagesearching.base.ui.fragment.BaseFragment;
 import io.toru.imagesearching.model.SearchResultModel;
 import io.toru.imagesearching.network.ISearchResultListener;
 import io.toru.imagesearching.network.NetworkRestClient;
@@ -59,6 +61,11 @@ public class MainActivity extends BaseActivity {
         TabLayout tab = (TabLayout) findViewById(R.id.main_tab_layout);
         tab.setupWithViewPager(viewPager);
         setKakaoAppTaskDescription();
+    }
+
+    @Override
+    public BaseTaskPresenter getTaskPresenter() {
+        return new MainViewPresenterImpl();
     }
 
     @Override

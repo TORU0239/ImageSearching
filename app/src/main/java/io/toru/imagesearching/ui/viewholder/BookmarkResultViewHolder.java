@@ -1,4 +1,4 @@
-package io.toru.imagesearching.view.viewholder;
+package io.toru.imagesearching.ui.viewholder;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 
 import io.toru.imagesearching.R;
 import io.toru.imagesearching.app.ImageSearchApplication;
-import io.toru.imagesearching.base.viewholder.BaseResultViewHolder;
+import io.toru.imagesearching.base.ui.viewholder.BaseResultViewHolder;
 import io.toru.imagesearching.model.SearchResultModel;
 
 /**
